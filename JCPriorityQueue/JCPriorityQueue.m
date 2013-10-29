@@ -186,12 +186,12 @@
 
 - (NSUInteger)count
 {
-  return self.queue.count;
+  return MAX(0,self.queue.count-1);
 }
 
 -(NSString *)description
 {
-  return [NSString stringWithFormat:@"JCPriorityQueue: %lu items",[self count]];
+  return [NSString stringWithFormat:@"JCPriorityQueue: %lu items",(unsigned long)[self count]];
 }
 
 @end
