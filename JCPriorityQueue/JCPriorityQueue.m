@@ -72,7 +72,7 @@
 
 - (void)addObject:(id<JCPriorityQueueObject>)object
 {  
-  NSUInteger last_index = [self count];
+  NSUInteger last_index = [self queueCount];
   NSUInteger parent_index = last_index / 2;
 
   [self.queue addObject:object];
@@ -104,7 +104,7 @@
   }
  
   NSUInteger first_index = 1;
-  NSUInteger last_index = [self count] - 1;
+  NSUInteger last_index = [self queueCount] - 1;
   
   if (last_index == first_index)
   {
@@ -120,14 +120,14 @@
   
   NSUInteger i, child;
   
-  for (i = first_index; i * 2 < [self count]; i = child)
+  for (i = first_index; i * 2 < [self queueCount]; i = child)
   {
     child = i * 2;
 
     id<JCPriorityQueueObject> child_obj = [self.queue objectAtIndex:child];
     id<JCPriorityQueueObject> child_2;
 
-    if (child + 1 < [self count])
+    if (child + 1 < [self queueCount])
     {
       child_2 = [self.queue objectAtIndex:child + 1];
 
@@ -184,14 +184,18 @@
   return [self.queue objectAtIndex:1];
 }
 
-- (NSUInteger)count
+- (NSUInteger)queueCount
 {
-  return MAX(0,self.queue.count-1);
+	return self.queue.count;
 }
 
+- (NSUInteger)count
+{
+	return MAX(0,self.queue.count-1);
+}
 -(NSString *)description
 {
-  return [NSString stringWithFormat:@"JCPriorityQueue: %lu items",(unsigned long)[self count]];
+  return [NSString stringWithFormat:@"JCPriorityQueue: %lu items",(unsigned long)[self queueCount]];
 }
 
 @end
